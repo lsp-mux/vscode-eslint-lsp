@@ -1,0 +1,30 @@
+{
+  "name": "@lsp-mux/vscode-eslint-lsp",
+  "version": "3.0.24",
+  "description": "ESLint language server extracted from the VS Code ESLint extension",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/source/main.js",
+  "publishConfig": {
+    "directory": "dist/source",
+    "main": "main.js"
+  },
+  "engines": {
+    "node": ">=22.6.0"
+  },
+  "scripts": {
+    "build": "pnpm run prepare-publish && pnpm run extract && pnpm run pack && pnpm run test:e2e",
+    "extract": "node --experimental-strip-types scripts/extract.ts",
+    "pack": "node --experimental-strip-types scripts/pack.ts",
+    "prepare-publish": "node --experimental-strip-types scripts/prepare-publish.ts",
+    "publish": "node --experimental-strip-types scripts/publish.ts",
+    "test:e2e": "vitest run --config vitest.config.e2e.ts"
+  },
+  "devDependencies": {
+    "@tsconfig/strictest": "2.0.8",
+    "@types/node": "22.16.0",
+    "@types/yauzl": "2.10.3",
+    "vitest": "4.1.2",
+    "yauzl": "3.2.1"
+  }
+}
