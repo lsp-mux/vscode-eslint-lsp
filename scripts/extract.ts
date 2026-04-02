@@ -1,5 +1,5 @@
-import { createWriteStream, existsSync, readFileSync, writeFileSync } from 'node:fs';
-import { rm, writeFile } from 'node:fs/promises';
+import { createWriteStream, existsSync } from 'node:fs';
+import { mkdir, rm, writeFile } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pipeline } from 'node:stream/promises';
@@ -11,6 +11,7 @@ const packageDir = join(__dirname, '..');
 const distDir = join(packageDir, 'dist');
 const outDir = join(distDir, 'source');
 const outFile = join(outDir, 'main.js');
+const versionFile = join(distDir, 'version.txt');
 
 if (existsSync(outFile)) {
   console.log('vscode-eslint-lsp: main.js already exists, skipping download');
@@ -19,6 +20,8 @@ if (existsSync(outFile)) {
 
 const zipPath = join(distDir, 'vscode-eslint.vsix');
 const url = 'https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dbaeumer/vsextensions/vscode-eslint/latest/vspackage';
+
+await mkdir(outDir, { recursive: true });
 
 console.log('vscode-eslint-lsp: downloading latest vscode-eslint...');
 
@@ -39,12 +42,8 @@ if (!manifestData) throw new Error('package.json not found in VSIX');
 const { version } = JSON.parse(manifestData.toString()) as { version: string };
 
 await writeFile(outFile, serverData);
+await writeFile(versionFile, version);
 await rm(zipPath, { force: true });
-
-const manifestPath = join(outDir, 'package.json');
-const manifest = JSON.parse(readFileSync(manifestPath, 'utf-8'));
-manifest.version = version;
-writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
 
 console.log(`vscode-eslint-lsp: extracted v${version}`);
 

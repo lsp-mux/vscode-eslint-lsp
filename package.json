@@ -13,11 +13,12 @@
     "node": ">=22.6.0"
   },
   "scripts": {
-    "build": "pnpm run prepare-publish && pnpm run extract && pnpm run pack && pnpm run test:e2e",
+    "build": "pnpm run extract && pnpm run prepare-publish && pnpm run pack && pnpm run test:e2e",
     "extract": "node --experimental-strip-types scripts/extract.ts",
     "pack": "node --experimental-strip-types scripts/pack.ts",
     "prepare-publish": "node --experimental-strip-types scripts/prepare-publish.ts",
     "publish": "node --experimental-strip-types scripts/publish.ts",
+    "release": "node --experimental-strip-types scripts/release.ts",
     "test:e2e": "vitest run --config vitest.config.e2e.ts"
   },
   "devDependencies": {
