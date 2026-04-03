@@ -44,6 +44,7 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: npm
     permissions:
       id-token: write
     steps:
@@ -71,6 +72,7 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: github
     permissions:
       contents: write
     steps:
