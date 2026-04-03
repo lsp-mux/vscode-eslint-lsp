@@ -3,6 +3,14 @@
   "version": "3.0.24",
   "description": "ESLint language server extracted from the VS Code ESLint extension",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lsp-mux/vscode-eslint-lsp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lsp-mux/vscode-eslint-lsp/issues"
+  },
+  "homepage": "https://github.com/lsp-mux/vscode-eslint-lsp#readme",
   "type": "module",
   "main": "dist/source/main.js",
   "publishConfig": {

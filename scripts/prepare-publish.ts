@@ -1,4 +1,4 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -18,3 +18,4 @@ manifest.version = version;
 
 writeFileSync(join(outDir, 'package.json'), JSON.stringify(manifest, null, 2) + '\n');
 writeFileSync(join(outDir, '.npmignore'), '*.tsbuildinfo\n');
+copyFileSync(join(packageDir, 'README.md'), join(outDir, 'README.md'));
