@@ -14,6 +14,8 @@ jobs:
 
       - run: pnpm run lint
 
+      - run: pnpm run typecheck
+
       - run: pnpm run build
 
       - uses: gtbuchanan/tooling/.github/actions/upload-artifact@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
