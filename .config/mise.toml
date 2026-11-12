@@ -1,0 +1,8 @@
+[settings]
+# Records each tool's download URLs and checksums in mise.lock, which the
+# shared mise-setup action keys its cache on and installs against.
+lockfile = true
+
+[tools]
+node = "26.13.0"
+pnpm = "12.18.0"
