@@ -18,7 +18,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - uses: gtbuchanan/tooling/.github/actions/mise-setup@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
 
@@ -26,7 +26,7 @@ jobs:
 
       - run: pnpm run build
 
-      - uses: actions/upload-artifact@v5
+      - uses: gtbuchanan/tooling/.github/actions/upload-artifact@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
         with:
           name: dist
           path: |
@@ -41,13 +41,13 @@ jobs:
     permissions:
       id-token: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - uses: gtbuchanan/tooling/.github/actions/mise-setup@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
 
       - uses: gtbuchanan/tooling/.github/actions/pnpm-tasks@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
 
-      - uses: actions/download-artifact@v5
+      - uses: gtbuchanan/tooling/.github/actions/download-artifact@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
         with:
           name: dist
           path: dist
@@ -62,11 +62,11 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - uses: gtbuchanan/tooling/.github/actions/mise-setup@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
 
-      - uses: actions/download-artifact@v5
+      - uses: gtbuchanan/tooling/.github/actions/download-artifact@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
         with:
           name: dist
           path: dist
