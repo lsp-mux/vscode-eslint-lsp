@@ -1,0 +1,21 @@
+amends "package://github.com/jdx/hk/releases/download/v2.11.1/hk@2.11.1#/Config.pkl"
+
+import "package://github.com/gtbuchanan/tooling/releases/download/hk-config@0.7.0/hk-config@0.7.0#/Defaults.pkl"
+
+// eslint args shared by the step's check/fix; only `--fix` differs.
+local eslintArgs = "--max-warnings=0 --no-warn-ignored {{files}}"
+
+local baseSteps = new Mapping<String, Step> {
+  ...Defaults.recommended
+  // gtb comes from mise's npm: backend, so it resolves on PATH.
+  ...Defaults.gtbCliSteps(null)
+}
+
+local allSteps = (baseSteps) {
+  ["eslint"] {
+    check = "pnpm exec eslint \(eslintArgs)"
+    fix = "pnpm exec eslint --fix \(eslintArgs)"
+  }
+}
+
+hooks = Defaults.hooksFor(allSteps)

@@ -1,2 +1,4 @@
-* text=auto
+* text=auto eol=lf
+.config/mise/locks/** linguist-generated
+mise.lock linguist-generated
 pnpm-lock.yaml linguist-generated

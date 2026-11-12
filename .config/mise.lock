@@ -2,6 +2,94 @@
 
 lockfile_version = 3
 
+[[tools.hk]]
+version = "2.11.1"
+backend = "packslip:github.com/jdx/hk"
+specifiers = ["2.11.1"]
+
+[tools.hk."platforms.linux-arm64"]
+checksum = "sha256:b94d3b405a9e392d0286491693fd22386d3c5be086bf4b8698df33623bfe91a9"
+url = "https://github.com/jdx/hk/releases/download/v2.11.1/hk-aarch64-unknown-linux-gnu.tar.gz"
+signer = "sigstore-oidc:https://github.com/jdx/hk/.github/workflows/release.yml"
+repository_ids = { repository = "922514152" }
+
+[tools.hk."platforms.linux-arm64-musl"]
+checksum = "sha256:5e20747e1335c599e2c1cf5bff06a8153cd42a719af00ced218868784875a63f"
+url = "https://github.com/jdx/hk/releases/download/v2.11.1/hk-aarch64-unknown-linux-musl.tar.gz"
+signer = "sigstore-oidc:https://github.com/jdx/hk/.github/workflows/release.yml"
+repository_ids = { repository = "922514152" }
+
+[tools.hk."platforms.linux-x64"]
+checksum = "sha256:b9330bd4b9326c3e1aefd757ff923fdf6d1b060074bcb4e54e16ec0a81fde7ec"
+url = "https://github.com/jdx/hk/releases/download/v2.11.1/hk-x86_64-unknown-linux-gnu.tar.gz"
+signer = "sigstore-oidc:https://github.com/jdx/hk/.github/workflows/release.yml"
+repository_ids = { repository = "922514152" }
+
+[tools.hk."platforms.linux-x64-musl"]
+checksum = "sha256:2067ccb4eeb4cb17623a7f840ee24a64edcfa242431b090358a854e619b3d345"
+url = "https://github.com/jdx/hk/releases/download/v2.11.1/hk-x86_64-unknown-linux-musl.tar.gz"
+signer = "sigstore-oidc:https://github.com/jdx/hk/.github/workflows/release.yml"
+repository_ids = { repository = "922514152" }
+
+[tools.hk."platforms.macos-arm64"]
+checksum = "sha256:95f89e6eef60e0c690b0d439b30e3b8558f47235a1a45cbff7b5351d294e4322"
+url = "https://github.com/jdx/hk/releases/download/v2.11.1/hk-aarch64-apple-darwin.tar.gz"
+signer = "sigstore-oidc:https://github.com/jdx/hk/.github/workflows/release.yml"
+repository_ids = { repository = "922514152" }
+
+[tools.hk."platforms.windows-x64"]
+checksum = "sha256:60b925d9734cd6bec5fab78b9c825b39b2ad9b1c9d9f03b685423c2d21ae9a8c"
+url = "https://github.com/jdx/hk/releases/download/v2.11.1/hk-x86_64-pc-windows-msvc.zip"
+signer = "sigstore-oidc:https://github.com/jdx/hk/.github/workflows/release.yml"
+repository_ids = { repository = "922514152" }
+
+[[tools.jactionlint]]
+version = "2.5.0"
+backend = "github:jdx/jactionlint"
+specifiers = ["v2.5.0"]
+
+[tools.jactionlint."platforms.linux-arm64"]
+checksum = "sha256:ad7e33b6264cea16b7e83ad2bb004824d5b1c15aedb35ba0dc84917f791c5525"
+url = "https://github.com/jdx/jactionlint/releases/download/v2.5.0/jactionlint_2.5.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/jdx/jactionlint/releases/assets/714298511"
+provenance = "github-attestations"
+
+[tools.jactionlint."platforms.linux-arm64-musl"]
+checksum = "sha256:ad7e33b6264cea16b7e83ad2bb004824d5b1c15aedb35ba0dc84917f791c5525"
+url = "https://github.com/jdx/jactionlint/releases/download/v2.5.0/jactionlint_2.5.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/jdx/jactionlint/releases/assets/714298511"
+provenance = "github-attestations"
+
+[tools.jactionlint."platforms.linux-x64"]
+checksum = "sha256:5ac307b0499bb0eab45ae99c23e8e0790874fbc667c75224410954e0e3c6e0f5"
+url = "https://github.com/jdx/jactionlint/releases/download/v2.5.0/jactionlint_2.5.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/jdx/jactionlint/releases/assets/714298541"
+provenance = "github-attestations"
+
+[tools.jactionlint."platforms.linux-x64-musl"]
+checksum = "sha256:5ac307b0499bb0eab45ae99c23e8e0790874fbc667c75224410954e0e3c6e0f5"
+url = "https://github.com/jdx/jactionlint/releases/download/v2.5.0/jactionlint_2.5.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/jdx/jactionlint/releases/assets/714298541"
+provenance = "github-attestations"
+
+[tools.jactionlint."platforms.macos-arm64"]
+checksum = "sha256:15b47d53e3b1aafbd674cca0e8fff0d5952f3cf2a7d7501a8f67576ef76397b4"
+url = "https://github.com/jdx/jactionlint/releases/download/v2.5.0/jactionlint_2.5.0_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/jdx/jactionlint/releases/assets/714298455"
+provenance = "github-attestations"
+
+[tools.jactionlint."platforms.macos-x64"]
+checksum = "sha256:f8f10def21260aa9515974f0aa145f5a6741efd60efe1f880c8c6f53a4ba676c"
+url = "https://github.com/jdx/jactionlint/releases/download/v2.5.0/jactionlint_2.5.0_darwin_amd64.tar.gz"
+url_api = "https://api.github.com/repos/jdx/jactionlint/releases/assets/714298456"
+provenance = "github-attestations"
+
+[tools.jactionlint."platforms.windows-x64"]
+checksum = "sha256:6f6202d6fc476cbe3978c7dd2349c881cfcfa98257593cb2f1bde87004f054c6"
+url = "https://github.com/jdx/jactionlint/releases/download/v2.5.0/jactionlint_2.5.0_windows_amd64.zip"
+url_api = "https://api.github.com/repos/jdx/jactionlint/releases/assets/714298686"
+provenance = "github-attestations"
+
 [[tools.node]]
 version = "26.13.0"
 backend = "core:node"
@@ -34,6 +122,21 @@ url = "https://nodejs.org/dist/v26.13.0/node-v26.13.0-darwin-x64.tar.gz"
 [tools.node."platforms.windows-x64"]
 checksum = "sha256:dcc60d59a0746999f99064a01c020445d54d84228c691cdbf25b49ac3b59150a"
 url = "https://nodejs.org/dist/v26.13.0/node-v26.13.0-win-x64.zip"
+
+[[tools."npm:@gtbuchanan/cli"]]
+version = "2.1.0"
+aube = { path = "mise/locks/npm-gtbuchanan-cli/2.1.0", digest = "sha256:2ac63a031da75d1b001486a5cf7bd9f4d9787b692794b3b86e0ac1e8d8318287" }
+backend = "npm:@gtbuchanan/cli"
+specifiers = ["2.1.0"]
+
+[[tools."npm:renovate"]]
+version = "44.224.1"
+aube = { path = "mise/locks/npm-renovate/44.224.1~aa673d8d", digest = "sha256:b063d8f1be524a8c88e8124569a7dee3db8050f244c8481fac33c7dfe18db087" }
+backend = "npm:renovate"
+specifiers = ["44.224.1"]
+
+[tools."npm:renovate".options]
+trust_policy_excludes = '["@yarnpkg/libzip@3.2.2"]'
 
 [[tools.pnpm]]
 version = "12.18.0"
@@ -81,3 +184,50 @@ checksum = "sha256:dfe2123affd2ed4be280ba7ab4678c0fae130b4936fabefa9b1675b60514e
 url = "https://github.com/pnpm/pnpm/releases/download/v12.18.0/pnpm-win32-x64.zip"
 url_api = "https://api.github.com/repos/pnpm/pnpm/releases/assets/711505547"
 provenance = "github-attestations"
+
+[[tools.shellcheck]]
+version = "0.11.0"
+backend = "aqua:koalaman/shellcheck"
+specifiers = ["0.11.0"]
+
+[tools.shellcheck."platforms.linux-arm64"]
+checksum = "sha256:12b331c1d2db6b9eb13cfca64306b1b157a86eb69db83023e261eaa7e7c14588"
+checksum_source = "mise-versions"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.linux.aarch64.tar.xz"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056934"
+
+[tools.shellcheck."platforms.linux-arm64-musl"]
+checksum = "sha256:12b331c1d2db6b9eb13cfca64306b1b157a86eb69db83023e261eaa7e7c14588"
+checksum_source = "mise-versions"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.linux.aarch64.tar.xz"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056934"
+
+[tools.shellcheck."platforms.linux-x64"]
+checksum = "sha256:8c3be12b05d5c177a04c29e3c78ce89ac86f1595681cab149b65b97c4e227198"
+checksum_source = "mise-versions"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.linux.x86_64.tar.xz"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056942"
+
+[tools.shellcheck."platforms.linux-x64-musl"]
+checksum = "sha256:8c3be12b05d5c177a04c29e3c78ce89ac86f1595681cab149b65b97c4e227198"
+checksum_source = "mise-versions"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.linux.x86_64.tar.xz"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056942"
+
+[tools.shellcheck."platforms.macos-arm64"]
+checksum = "sha256:56affdd8de5527894dca6dc3d7e0a99a873b0f004d7aabc30ae407d3f48b0a79"
+checksum_source = "mise-versions"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.darwin.aarch64.tar.xz"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056932"
+
+[tools.shellcheck."platforms.macos-x64"]
+checksum = "sha256:3c89db4edcab7cf1c27bff178882e0f6f27f7afdf54e859fa041fca10febe4c6"
+checksum_source = "mise-versions"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.darwin.x86_64.tar.xz"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056930"
+
+[tools.shellcheck."platforms.windows-x64"]
+checksum = "sha256:8a4e35ab0b331c85d73567b12f2a444df187f483e5079ceffa6bda1faa2e740e"
+checksum_source = "mise-versions"
+url = "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.zip"
+url_api = "https://api.github.com/repos/koalaman/shellcheck/releases/assets/279056944"
