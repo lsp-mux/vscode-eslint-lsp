@@ -1,0 +1,16 @@
+---
+jobs:
+  dependencies:
+    name: Dependencies
+    permissions:
+      contents: read
+      pull-requests: write # Dependency Review posts a PR comment
+    uses: gtbuchanan/tooling/.github/workflows/dependency-review.yml@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
+name: PR
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
