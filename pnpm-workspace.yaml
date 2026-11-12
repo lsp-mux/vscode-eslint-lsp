@@ -21,4 +21,7 @@ minimumReleaseAge: 4320
 minimumReleaseAgeExclude:
   - '@gtbuchanan/*'
 
+packages:
+  - packages/*
+
 strictPeerDependencies: true

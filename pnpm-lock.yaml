@@ -47,6 +47,24 @@ importers:
       '@gtbuchanan/tsconfig':
         specifier: 'catalog:'
         version: 0.2.0(typescript@6.0.3)
+      '@types/node':
+        specifier: 'catalog:'
+        version: 26.6.6
+      eslint:
+        specifier: 'catalog:'
+        version: 10.14.0(jiti@2.7.0)
+      jiti:
+        specifier: 'catalog:'
+        version: 2.7.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+
+  packages/vscode-eslint-lsp:
+    devDependencies:
+      '@gtbuchanan/tsconfig':
+        specifier: 'catalog:'
+        version: 0.2.0(typescript@6.0.3)
       '@gtbuchanan/vitest-config':
         specifier: 'catalog:'
         version: 0.4.0(vitest@5.1.0(@types/node@26.6.6)(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@26.6.6)(jiti@2.7.0)(yaml@2.9.1)))
@@ -56,12 +74,6 @@ importers:
       '@types/yauzl':
         specifier: 'catalog:'
         version: 3.4.0
-      eslint:
-        specifier: 'catalog:'
-        version: 10.14.0(jiti@2.7.0)
-      jiti:
-        specifier: 'catalog:'
-        version: 2.7.0
       typescript:
         specifier: 'catalog:'
         version: 6.0.3

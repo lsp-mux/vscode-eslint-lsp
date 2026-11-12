@@ -4,8 +4,6 @@
   },
   "extends": "@gtbuchanan/tsconfig/node.json",
   "include": [
-    "e2e",
-    "scripts",
     "*"
   ]
 }

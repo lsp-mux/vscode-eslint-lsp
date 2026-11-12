@@ -1,46 +1,20 @@
 {
-  "name": "@lsp-mux/vscode-eslint-lsp",
-  "version": "3.0.34",
-  "description": "ESLint language server extracted from the VS Code ESLint extension",
-  "homepage": "https://github.com/lsp-mux/vscode-eslint-lsp#readme",
-  "bugs": {
-    "url": "https://github.com/lsp-mux/vscode-eslint-lsp/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lsp-mux/vscode-eslint-lsp.git"
-  },
-  "license": "MIT",
+  "name": "@lsp-mux/vscode-eslint-lsp-workspace",
+  "private": true,
   "type": "module",
-  "main": "dist/source/main.js",
   "scripts": {
-    "build": "pnpm run extract && pnpm run prepare-publish && pnpm run pack && pnpm run test:e2e",
-    "extract": "node scripts/extract.ts",
+    "build": "pnpm --recursive run build",
     "lint": "eslint --max-warnings=0 .",
-    "pack": "node scripts/pack.ts",
-    "prepare-publish": "node scripts/prepare-publish.ts",
-    "publish": "node scripts/publish.ts",
-    "release": "node scripts/release.ts",
-    "test:e2e": "vitest run --config vitest.config.e2e.ts",
-    "typecheck": "tsc"
+    "publish": "pnpm --recursive run publish",
+    "release": "pnpm --recursive run release",
+    "typecheck": "tsc && pnpm --recursive run typecheck"
   },
   "devDependencies": {
     "@gtbuchanan/eslint-config": "catalog:",
     "@gtbuchanan/tsconfig": "catalog:",
-    "@gtbuchanan/vitest-config": "catalog:",
     "@types/node": "catalog:",
-    "@types/yauzl": "catalog:",
     "eslint": "catalog:",
     "jiti": "catalog:",
-    "typescript": "catalog:",
-    "vitest": "catalog:",
-    "yauzl": "catalog:"
-  },
-  "engines": {
-    "node": ">=22.6.0"
-  },
-  "publishConfig": {
-    "directory": "dist/source",
-    "main": "main.js"
+    "typescript": "catalog:"
   }
 }

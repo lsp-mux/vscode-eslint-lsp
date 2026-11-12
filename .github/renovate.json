@@ -8,7 +8,7 @@
       "description": "The package republishes the extension's server under the extension's version.",
       "extractVersionTemplate": "^release/(?<version>.+)$",
       "managerFilePatterns": [
-        "/^package\\.json$/"
+        "/^packages/vscode-eslint-lsp/package\\.json$/"
       ],
       "matchStrings": [
         "\"version\":\\s*\"(?<currentValue>[^\"]+)\""

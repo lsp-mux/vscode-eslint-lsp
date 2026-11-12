@@ -30,7 +30,7 @@ jobs:
       - uses: gtbuchanan/tooling/.github/actions/upload-artifact@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
         with:
           name: dist
-          path: dist/packages/*.tgz
+          path: packages/vscode-eslint-lsp/dist/packages/*.tgz
     timeout-minutes: 30
 
   publish:
@@ -52,7 +52,7 @@ jobs:
       - uses: gtbuchanan/tooling/.github/actions/download-artifact@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
         with:
           name: dist
-          path: dist/packages
+          path: packages/vscode-eslint-lsp/dist/packages
 
       - run: pnpm run publish
     timeout-minutes: 10
