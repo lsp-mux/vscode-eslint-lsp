@@ -30,6 +30,7 @@
     "test:e2e": "vitest run --config vitest.config.e2e.ts"
   },
   "devDependencies": {
+    "@gtbuchanan/vitest-config": "0.4.0",
     "@tsconfig/strictest": "2.0.8",
     "@types/node": "22.16.0",
     "@types/yauzl": "2.10.3",

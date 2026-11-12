@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@gtbuchanan/vitest-config':
+        specifier: 0.4.0
+        version: 0.4.0(vitest@4.1.2(@types/node@22.16.0)(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@22.16.0)))
       '@tsconfig/strictest':
         specifier: 2.0.8
         version: 2.0.8
@@ -35,6 +38,12 @@ packages:
 
   '@emnapi/wasi-threads@1.2.0':
     resolution: {integrity: sha512-N10dEJNSsUx41Z6pZsXU8FjPjpBEplgH24sfkmITrBED1/U2Esum9F3lfLrMjKHHjmi557zQn7kR9R+XWXu5Rg==}
+
+  '@gtbuchanan/vitest-config@0.4.0':
+    resolution: {integrity: sha512-p/lkCil+dTU7E6IhaLNZsaMR3SRGL/UC8R3NXiP6t2NpdBctHGP0m/z64L7wgcSn7Q0Wvr/xDP/6RC0K9b0acg==}
+    engines: {node: '>=24.0.0'}
+    peerDependencies:
+      vitest: ^4.0.0 || ^5.0.0
 
   '@jridgewell/sourcemap-codec@1.5.5':
     resolution: {integrity: sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og==}
@@ -207,6 +216,10 @@ packages:
     resolution: {integrity: sha512-NUPRluOfOiTKBKvWPtSD4PhFvWCqOi0BGStNWs57X9js7XGTprSmFoz5F0tWhR4WPjNeR9jXqdC7/UpSJTnlRg==}
     engines: {node: '>=18'}
 
+  console-fail-test@0.10.0:
+    resolution: {integrity: sha512-a5EIcR/pka309Dw94NjU+DB35UhEJvmFTTkVYnOg7/vODzD9ILrCvxr94xXyuAeZBZnKuFmuUTRhTyuIWKykgA==}
+    engines: {node: '>=20.19.0'}
+
   convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
 
@@ -232,6 +245,10 @@ packages:
     peerDependenciesMeta:
       picomatch:
         optional: true
+
+  find-up-simple@1.0.1:
+    resolution: {integrity: sha512-afd4O7zpqHeRyg4PfDQsXmlDe2PfdHtJt6Akt8jOWaApLOZk5JXs6VMR29lz03pRe9mpykrRCYIYxaJYcfpncQ==}
+    engines: {node: '>=18'}
 
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
@@ -484,6 +501,12 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
+  '@gtbuchanan/vitest-config@0.4.0(vitest@4.1.2(@types/node@22.16.0)(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@22.16.0)))':
+    dependencies:
+      console-fail-test: 0.10.0
+      find-up-simple: 1.0.1
+      vitest: 4.1.2(@types/node@22.16.0)(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@22.16.0))
+
   '@jridgewell/sourcemap-codec@1.5.5': {}
 
   '@napi-rs/wasm-runtime@1.1.2(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)':
@@ -618,6 +641,8 @@ snapshots:
 
   chai@6.2.2: {}
 
+  console-fail-test@0.10.0: {}
+
   convert-source-map@2.0.0: {}
 
   detect-libc@2.1.2: {}
@@ -633,6 +658,8 @@ snapshots:
   fdir@6.5.0(picomatch@4.0.4):
     optionalDependencies:
       picomatch: 4.0.4
+
+  find-up-simple@1.0.1: {}
 
   fsevents@2.3.3:
     optional: true
