@@ -1,4 +1,5 @@
 import { type ChildProcess, spawn } from 'node:child_process';
+import { once } from 'node:events';
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { describe, it as base } from 'vitest';
@@ -89,7 +90,13 @@ describe('ESLint LSP server', () => {
         },
       });
     } finally {
-      proc.kill();
+      /* On Windows the server's cwd locks the project directory until the
+         process is gone, so the fixture's cleanup must wait for the exit. */
+      if (proc.exitCode === null && proc.signalCode === null) {
+        const exited = once(proc, 'exit');
+        proc.kill();
+        await exited;
+      }
     }
   });
 });
