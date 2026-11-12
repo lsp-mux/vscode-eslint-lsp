@@ -1,0 +1,21 @@
+catalog:
+  '@gtbuchanan/tsconfig': 0.2.0
+  '@gtbuchanan/vitest-config': 0.4.0
+  '@types/node': 26.6.6
+  '@types/yauzl': 3.4.0
+  typescript: 6.0.3
+  vitest: 5.1.0
+  yauzl: 3.4.0
+
+engineStrict: true
+
+hoist: false
+
+lockfileIncludeTarballUrl: false
+
+# 4320 minutes = 3 days, matching the shared Renovate preset's quarantine.
+minimumReleaseAge: 4320
+minimumReleaseAgeExclude:
+  - '@gtbuchanan/*'
+
+strictPeerDependencies: true

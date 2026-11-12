@@ -14,6 +14,9 @@ const version = readFileSync(join(distDir, 'version.txt'), 'utf-8').trim();
 
 delete manifest.publishConfig.directory;
 delete manifest.type;
+/* Consumers never install devDependencies, and their `catalog:` specifiers
+   resolve only inside this workspace, which dist/source is not. */
+delete manifest.devDependencies;
 manifest.version = version;
 
 writeFileSync(join(outDir, 'package.json'), JSON.stringify(manifest, null, 2) + '\n');
