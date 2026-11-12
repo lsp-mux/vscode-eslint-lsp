@@ -1,5 +1,20 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "microsoft/vscode-eslint",
+      "description": "The package republishes the extension's server under the extension's version.",
+      "extractVersionTemplate": "^release/(?<version>.+)$",
+      "managerFilePatterns": [
+        "/^package\\.json$/"
+      ],
+      "matchStrings": [
+        "\"version\":\\s*\"(?<currentValue>[^\"]+)\""
+      ]
+    }
+  ],
   "extends": [
     "github>gtbuchanan/tooling"
   ]

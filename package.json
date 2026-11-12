@@ -1,6 +1,6 @@
 {
   "name": "@lsp-mux/vscode-eslint-lsp",
-  "version": "3.0.24",
+  "version": "3.0.34",
   "description": "ESLint language server extracted from the VS Code ESLint extension",
   "homepage": "https://github.com/lsp-mux/vscode-eslint-lsp#readme",
   "bugs": {

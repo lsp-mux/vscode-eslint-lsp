@@ -1,26 +1,25 @@
-import { createWriteStream, existsSync } from 'node:fs';
+import { createWriteStream } from 'node:fs';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { type Entry, open } from 'yauzl';
+import manifest from '../package.json' with { type: 'json' };
+
+/* This package republishes the extension's server under the extension's own
+   version, so the manifest's version names the release to download. Renovate
+   bumps it from upstream's GitHub releases. */
+const { version } = manifest;
 
 const distDir = path.join(import.meta.dirname, '..', 'dist');
 const outDir = path.join(distDir, 'source');
 const outFile = path.join(outDir, 'main.js');
-
-if (existsSync(outFile)) {
-  console.log('vscode-eslint-lsp: main.js already exists, skipping download');
-  process.exit(0);
-}
-
-const versionFile = path.join(distDir, 'version.txt');
 const zipPath = path.join(distDir, 'vscode-eslint.vsix');
-const url = 'https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dbaeumer/vsextensions/vscode-eslint/latest/vspackage';
+const url = `https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dbaeumer/vsextensions/vscode-eslint/${version}/vspackage`;
 
 await mkdir(outDir, { recursive: true });
 
-console.log('vscode-eslint-lsp: downloading latest vscode-eslint...');
+console.log(`vscode-eslint-lsp: downloading vscode-eslint v${version}...`);
 
 const response = await fetch(url);
 if (!response.ok || !response.body) {
@@ -36,10 +35,12 @@ if (!serverData) throw new Error('eslintServer.js not found in VSIX');
 const manifestData = await extractFromVsix('extension/package.json');
 if (!manifestData) throw new Error('package.json not found in VSIX');
 
-const { version } = JSON.parse(manifestData.toString()) as { version: string };
+const { version: vsixVersion } = JSON.parse(manifestData.toString()) as { version: string };
+if (vsixVersion !== version) {
+  throw new Error(`Marketplace served v${vsixVersion} for v${version}`);
+}
 
 await writeFile(outFile, serverData);
-await writeFile(versionFile, version);
 await rm(zipPath, { force: true });
 
 console.log(`vscode-eslint-lsp: extracted v${version}`);

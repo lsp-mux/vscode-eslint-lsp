@@ -1,4 +1,4 @@
-import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import manifest from '../package.json' with { type: 'json' };
 
@@ -9,8 +9,6 @@ const jsonIndent = 2;
 
 mkdirSync(outDir, { recursive: true });
 
-const version = readFileSync(path.join(distDir, 'version.txt'), 'utf8').trim();
-
 /* JSON.stringify drops the keys set to undefined. Consumers never install
    devDependencies, and their `catalog:` specifiers resolve only inside this
    workspace, which dist/source is not. */
@@ -19,7 +17,6 @@ const published = {
   devDependencies: undefined,
   publishConfig: { ...manifest.publishConfig, directory: undefined },
   type: undefined,
-  version,
 };
 
 writeFileSync(
