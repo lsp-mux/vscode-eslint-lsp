@@ -15,12 +15,12 @@
   "main": "dist/source/main.js",
   "scripts": {
     "build": "pnpm run extract && pnpm run prepare-publish && pnpm run pack && pnpm run test:e2e",
-    "extract": "node --experimental-strip-types scripts/extract.ts",
+    "extract": "node scripts/extract.ts",
     "lint": "eslint --max-warnings=0 .",
-    "pack": "node --experimental-strip-types scripts/pack.ts",
-    "prepare-publish": "node --experimental-strip-types scripts/prepare-publish.ts",
-    "publish": "node --experimental-strip-types scripts/publish.ts",
-    "release": "node --experimental-strip-types scripts/release.ts",
+    "pack": "node scripts/pack.ts",
+    "prepare-publish": "node scripts/prepare-publish.ts",
+    "publish": "node scripts/publish.ts",
+    "release": "node scripts/release.ts",
     "test:e2e": "vitest run --config vitest.config.e2e.ts",
     "typecheck": "tsc"
   },
