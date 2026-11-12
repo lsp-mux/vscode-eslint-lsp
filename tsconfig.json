@@ -1,7 +1,11 @@
 {
-  "extends": "@gtbuchanan/tsconfig/node.json",
   "compilerOptions": {
     "noEmit": true
   },
-  "include": ["scripts", "e2e"]
+  "extends": "@gtbuchanan/tsconfig/node.json",
+  "include": [
+    "e2e",
+    "scripts",
+    "*"
+  ]
 }

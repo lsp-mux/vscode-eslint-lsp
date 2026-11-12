@@ -1,24 +1,30 @@
 import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import manifest from '../package.json' with { type: 'json' };
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const packageDir = join(__dirname, '..');
-const distDir = join(packageDir, 'dist');
-const outDir = join(distDir, 'source');
+const packageDir = path.join(import.meta.dirname, '..');
+const distDir = path.join(packageDir, 'dist');
+const outDir = path.join(distDir, 'source');
+const jsonIndent = 2;
 
 mkdirSync(outDir, { recursive: true });
 
-const manifest = JSON.parse(readFileSync(join(packageDir, 'package.json'), 'utf-8'));
-const version = readFileSync(join(distDir, 'version.txt'), 'utf-8').trim();
+const version = readFileSync(path.join(distDir, 'version.txt'), 'utf8').trim();
 
-delete manifest.publishConfig.directory;
-delete manifest.type;
-/* Consumers never install devDependencies, and their `catalog:` specifiers
-   resolve only inside this workspace, which dist/source is not. */
-delete manifest.devDependencies;
-manifest.version = version;
+/* JSON.stringify drops the keys set to undefined. Consumers never install
+   devDependencies, and their `catalog:` specifiers resolve only inside this
+   workspace, which dist/source is not. */
+const published = {
+  ...manifest,
+  devDependencies: undefined,
+  publishConfig: { ...manifest.publishConfig, directory: undefined },
+  type: undefined,
+  version,
+};
 
-writeFileSync(join(outDir, 'package.json'), JSON.stringify(manifest, null, 2) + '\n');
-writeFileSync(join(outDir, '.npmignore'), '*.tsbuildinfo\n');
-copyFileSync(join(packageDir, 'README.md'), join(outDir, 'README.md'));
+writeFileSync(
+  path.join(outDir, 'package.json'),
+  `${JSON.stringify(published, undefined, jsonIndent)}\n`,
+);
+writeFileSync(path.join(outDir, '.npmignore'), '*.tsbuildinfo\n');
+copyFileSync(path.join(packageDir, 'README.md'), path.join(outDir, 'README.md'));

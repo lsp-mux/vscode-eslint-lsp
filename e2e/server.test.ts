@@ -1,13 +1,15 @@
 import { type ChildProcess, spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { createRequire } from 'node:module';
-import { join } from 'node:path';
-import { describe, it as base } from 'vitest';
+import path from 'node:path';
+import { it as base, describe } from 'vitest';
 import { type ProjectFixture, createProjectFixture } from './fixture.js';
 
+/* eslint-disable-next-line vitest/consistent-test-it --
+   False positive on .extend() factory:
+   https://github.com/vitest-dev/eslint-plugin-vitest/issues/884 */
 const it = base.extend<{ fixture: ProjectFixture }>({
   fixture: [
-    // eslint-disable-next-line no-empty-pattern -- vitest requires destructuring
     async ({}, use) => {
       using fixture = createProjectFixture();
       await use(fixture);
@@ -18,7 +20,7 @@ const it = base.extend<{ fixture: ProjectFixture }>({
 
 const encode = (message: object): string => {
   const body = JSON.stringify(message);
-  return `Content-Length: ${Buffer.byteLength(body)}\r\n\r\n${body}`;
+  return `Content-Length: ${String(Buffer.byteLength(body))}\r\n\r\n${body}`;
 };
 
 const readResponseById = (proc: ChildProcess, id: number): Promise<object> =>
@@ -33,10 +35,10 @@ const readResponseById = (proc: ChildProcess, id: number): Promise<object> =>
         if (headerEnd === -1) return;
 
         const header = buffer.slice(0, headerEnd);
-        const match = /Content-Length:\s*(\d+)/u.exec(header);
-        if (!match?.[1]) return;
+        const length = /Content-Length:\s*(?<length>\d+)/v.exec(header)?.groups?.['length'];
+        if (length === undefined) return;
 
-        const contentLength = Number(match[1]);
+        const contentLength = Number(length);
         const bodyStart = headerEnd + 4;
         if (buffer.length < bodyStart + contentLength) return;
 
@@ -54,12 +56,14 @@ const readResponseById = (proc: ChildProcess, id: number): Promise<object> =>
 
     proc.stdout?.on('data', onData);
     proc.on('error', reject);
-    setTimeout(() => { reject(new Error('Timed out waiting for LSP response')); }, 10_000);
+    setTimeout(() => {
+      reject(new Error('Timed out waiting for LSP response'));
+    }, 10_000);
   });
 
 describe('ESLint LSP server', () => {
   it('responds to initialize', async ({ fixture, expect }) => {
-    const require = createRequire(join(fixture.projectDir, 'index.js'));
+    const require = createRequire(path.join(fixture.projectDir, 'index.js'));
     const serverPath = require.resolve('@lsp-mux/vscode-eslint-lsp');
 
     const proc = spawn('node', [serverPath, '--stdio'], {
@@ -75,18 +79,18 @@ describe('ESLint LSP server', () => {
         params: {
           processId: process.pid,
           capabilities: {},
-          rootUri: `file:///${fixture.projectDir.replace(/\\/gu, '/')}`,
+          rootUri: `file:///${fixture.projectDir.replaceAll('\\', '/')}`,
         },
       };
 
-      proc.stdin?.write(encode(initRequest));
+      proc.stdin.write(encode(initRequest));
       const response = readResponseById(proc, 1);
 
       await expect(response).resolves.toMatchObject({
         jsonrpc: '2.0',
         id: 1,
         result: {
-          capabilities: expect.any(Object),
+          capabilities: {},
         },
       });
     } finally {

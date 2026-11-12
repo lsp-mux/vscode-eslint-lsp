@@ -1,18 +1,18 @@
+import { execSync } from 'node:child_process';
 import { mkdtempSync, readdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
-import { execSync } from 'node:child_process';
+import path from 'node:path';
 
 const locateTarball = (): string => {
-  const outDir = join(process.cwd(), 'dist', 'packages');
-  const tarballs = readdirSync(outDir).filter(f => f.endsWith('.tgz'));
+  const outDir = path.join(process.cwd(), 'dist', 'packages');
+  const tarballs = readdirSync(outDir).filter(file => file.endsWith('.tgz'));
   const [tgzName] = tarballs;
-  if (tarballs.length !== 1 || !tgzName) {
+  if (!tgzName || tarballs.length !== 1) {
     throw new Error(
       `Expected exactly 1 tarball in ${outDir}, found ${String(tarballs.length)}`,
     );
   }
-  return join(outDir, tgzName);
+  return path.join(outDir, tgzName);
 };
 
 export interface ProjectFixture {
@@ -22,9 +22,9 @@ export interface ProjectFixture {
 
 export const createProjectFixture = (): ProjectFixture => {
   const tgz = locateTarball();
-  const projectDir = mkdtempSync(join(tmpdir(), 'e2e-vscode-eslint-lsp-'));
+  const projectDir = mkdtempSync(path.join(tmpdir(), 'e2e-vscode-eslint-lsp-'));
 
-  execSync(`npm init -y`, { cwd: projectDir, stdio: 'ignore' });
+  execSync('npm init -y', { cwd: projectDir, stdio: 'ignore' });
   execSync(`npm install ${tgz}`, { cwd: projectDir, stdio: 'ignore' });
 
   return {

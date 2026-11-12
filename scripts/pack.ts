@@ -1,11 +1,9 @@
 import { execSync } from 'node:child_process';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const packageDir = join(__dirname, '..');
-const sourceDir = join(packageDir, 'dist', 'source');
-const packagesDir = join(packageDir, 'dist', 'packages');
+const distDir = path.join(import.meta.dirname, '..', 'dist');
+const sourceDir = path.join(distDir, 'source');
+const packagesDir = path.join(distDir, 'packages');
 
 execSync(`pnpm pack --pack-destination ${packagesDir}`, {
   cwd: sourceDir,

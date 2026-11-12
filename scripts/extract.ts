@@ -1,24 +1,21 @@
 import { createWriteStream, existsSync } from 'node:fs';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { pipeline } from 'node:stream/promises';
-import { open, type Entry } from 'yauzl';
+import path from 'node:path';
 import type { Readable } from 'node:stream';
+import { pipeline } from 'node:stream/promises';
+import { type Entry, open } from 'yauzl';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const packageDir = join(__dirname, '..');
-const distDir = join(packageDir, 'dist');
-const outDir = join(distDir, 'source');
-const outFile = join(outDir, 'main.js');
-const versionFile = join(distDir, 'version.txt');
+const distDir = path.join(import.meta.dirname, '..', 'dist');
+const outDir = path.join(distDir, 'source');
+const outFile = path.join(outDir, 'main.js');
 
 if (existsSync(outFile)) {
   console.log('vscode-eslint-lsp: main.js already exists, skipping download');
   process.exit(0);
 }
 
-const zipPath = join(distDir, 'vscode-eslint.vsix');
+const versionFile = path.join(distDir, 'version.txt');
+const zipPath = path.join(distDir, 'vscode-eslint.vsix');
 const url = 'https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dbaeumer/vsextensions/vscode-eslint/latest/vspackage';
 
 await mkdir(outDir, { recursive: true });
@@ -33,10 +30,10 @@ await pipeline(response.body, createWriteStream(zipPath));
 
 console.log('vscode-eslint-lsp: extracting...');
 
-const serverData = await extractFileFromZip(zipPath, 'extension/server/out/eslintServer.js');
+const serverData = await extractFromVsix('extension/server/out/eslintServer.js');
 if (!serverData) throw new Error('eslintServer.js not found in VSIX');
 
-const manifestData = await extractFileFromZip(zipPath, 'extension/package.json');
+const manifestData = await extractFromVsix('extension/package.json');
 if (!manifestData) throw new Error('package.json not found in VSIX');
 
 const { version } = JSON.parse(manifestData.toString()) as { version: string };
@@ -47,10 +44,16 @@ await rm(zipPath, { force: true });
 
 console.log(`vscode-eslint-lsp: extracted v${version}`);
 
-function extractFileFromZip(zipFilePath: string, entryName: string): Promise<Buffer | null> {
+/**
+ * Reads one entry out of the downloaded VSIX.
+ * @param entryName - Path of the entry inside the archive
+ * @returns The entry's contents, or undefined when the archive has no such entry
+ */
+function extractFromVsix(entryName: string): Promise<Buffer | undefined> {
   return new Promise((resolve, reject) => {
-    open(zipFilePath, { lazyEntries: true }, (err: Error | null, zipfile) => {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- zipfile is undefined on error
+    open(zipPath, { lazyEntries: true }, (err: Error | null, zipfile) => {
+      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition --
+         zipfile is undefined on error */
       if (err || !zipfile) {
         reject(err ?? new Error('Failed to open zip'));
         return;
@@ -79,7 +82,7 @@ function extractFileFromZip(zipFilePath: string, entryName: string): Promise<Buf
       });
 
       zipfile.on('end', () => {
-        resolve(null);
+        resolve(undefined);
       });
     });
   });

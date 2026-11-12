@@ -2,27 +2,21 @@
   "name": "@lsp-mux/vscode-eslint-lsp",
   "version": "3.0.24",
   "description": "ESLint language server extracted from the VS Code ESLint extension",
-  "license": "MIT",
+  "homepage": "https://github.com/lsp-mux/vscode-eslint-lsp#readme",
+  "bugs": {
+    "url": "https://github.com/lsp-mux/vscode-eslint-lsp/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lsp-mux/vscode-eslint-lsp.git"
   },
-  "bugs": {
-    "url": "https://github.com/lsp-mux/vscode-eslint-lsp/issues"
-  },
-  "homepage": "https://github.com/lsp-mux/vscode-eslint-lsp#readme",
+  "license": "MIT",
   "type": "module",
   "main": "dist/source/main.js",
-  "publishConfig": {
-    "directory": "dist/source",
-    "main": "main.js"
-  },
-  "engines": {
-    "node": ">=22.6.0"
-  },
   "scripts": {
     "build": "pnpm run extract && pnpm run prepare-publish && pnpm run pack && pnpm run test:e2e",
     "extract": "node --experimental-strip-types scripts/extract.ts",
+    "lint": "eslint --max-warnings=0 .",
     "pack": "node --experimental-strip-types scripts/pack.ts",
     "prepare-publish": "node --experimental-strip-types scripts/prepare-publish.ts",
     "publish": "node --experimental-strip-types scripts/publish.ts",
@@ -30,12 +24,22 @@
     "test:e2e": "vitest run --config vitest.config.e2e.ts"
   },
   "devDependencies": {
+    "@gtbuchanan/eslint-config": "catalog:",
     "@gtbuchanan/tsconfig": "catalog:",
     "@gtbuchanan/vitest-config": "catalog:",
     "@types/node": "catalog:",
     "@types/yauzl": "catalog:",
+    "eslint": "catalog:",
+    "jiti": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:",
     "yauzl": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.6.0"
+  },
+  "publishConfig": {
+    "directory": "dist/source",
+    "main": "main.js"
   }
 }

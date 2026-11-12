@@ -1,12 +1,10 @@
 import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
-import { join, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const distDir = join(__dirname, '..', 'dist');
+const distDir = path.join(import.meta.dirname, '..', 'dist');
 
-const version = readFileSync(join(distDir, 'version.txt'), 'utf-8').trim();
+const version = readFileSync(path.join(distDir, 'version.txt'), 'utf8').trim();
 const tag = `v${version}`;
 
 try {
