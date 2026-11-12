@@ -1,4 +1,10 @@
 ---
+# Called workflows see the caller's github.workflow, so the `-caller` part keeps
+# this group distinct from any they build.
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-caller-${{ github.event.pull_request.number }}
+
 jobs:
   dependencies:
     name: Dependencies

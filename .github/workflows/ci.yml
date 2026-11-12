@@ -1,7 +1,19 @@
 ---
+# A newer push to a pull request supersedes its older runs. On main, runs queue
+# instead: cancelling one partway through publishing would leave npm and the
+# GitHub release out of step.
+concurrency:
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    name: Build
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -21,14 +33,17 @@ jobs:
           path: |
             dist/packages/*.tgz
             dist/version.txt
+    timeout-minutes: 30
 
   publish:
     environment: npm
-    if: github.ref == 'refs/heads/main'
+    if: ${{ github.ref == 'refs/heads/main' }}
+    name: Publish
     needs: build
     permissions:
-      id-token: write
-    runs-on: ubuntu-latest
+      contents: read
+      id-token: write # npm trusted publishing exchanges the OIDC token
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -42,14 +57,16 @@ jobs:
           path: dist
 
       - run: pnpm run publish
+    timeout-minutes: 10
 
   release:
     environment: github
-    if: github.ref == 'refs/heads/main'
+    if: ${{ github.ref == 'refs/heads/main' }}
+    name: Release
     needs: build
     permissions:
-      contents: write
-    runs-on: ubuntu-latest
+      contents: write # creates the GitHub release and its tag
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -63,6 +80,7 @@ jobs:
       - env:
           GH_TOKEN: ${{ github.token }}
         run: pnpm run release
+    timeout-minutes: 10
 name: CI
 
 on:
