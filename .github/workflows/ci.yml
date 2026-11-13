@@ -19,18 +19,14 @@ jobs:
 
       - uses: gtbuchanan/tooling/.github/actions/mise-setup@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
 
-      - uses: gtbuchanan/tooling/.github/actions/pnpm-tasks@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
-
-      - run: pnpm run lint
-
-      - run: pnpm run typecheck
-
-      - run: pnpm run build
+      - uses: gtbuchanan/tooling/.github/actions/turbo-run@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
+        with:
+          task: build
 
       - uses: gtbuchanan/tooling/.github/actions/upload-artifact@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
         with:
           name: dist
-          path: packages/vscode-eslint-lsp/dist/packages/*.tgz
+          path: packages/vscode-eslint-lsp/dist/packages/npm/*.tgz
     timeout-minutes: 30
 
   publish:
@@ -52,7 +48,7 @@ jobs:
       - uses: gtbuchanan/tooling/.github/actions/download-artifact@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
         with:
           name: dist
-          path: packages/vscode-eslint-lsp/dist/packages
+          path: packages/vscode-eslint-lsp/dist/packages/npm
 
       - run: pnpm run publish
     timeout-minutes: 10

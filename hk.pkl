@@ -9,8 +9,8 @@ local baseSteps = new Mapping<String, Step> {
   ...(Defaults.recommended) {
     ["jactionlint"] = Defaults.jactionlintWith("pedantic")
   }
-  // gtb comes from mise's npm: backend, so it resolves on PATH.
-  ...Defaults.gtbCliSteps(null)
+  // gtb is a workspace devDependency.
+  ...Defaults.gtbCliSteps("pnpm exec")
 }
 
 local allSteps = (baseSteps) {

@@ -1,0 +1,188 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "agentGuidance": false,
+  "tasks": {
+    "//#lint:eslint": {
+      "dependsOn": [
+        "^transit"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$"
+      ],
+      "outputs": [
+        "dist/.eslintcache"
+      ]
+    },
+    "//#typecheck:ts": {
+      "dependsOn": [
+        "^transit"
+      ],
+      "inputs": [
+        "tsconfig.base.json",
+        "bin/**",
+        "scripts/**",
+        "src/**",
+        "test/**",
+        "e2e/**",
+        "*.cjs",
+        "*.cts",
+        "*.js",
+        "*.jsx",
+        "*.mjs",
+        "*.mts",
+        "*.ts",
+        "*.tsx",
+        ".*.cjs",
+        ".*.cts",
+        ".*.js",
+        ".*.jsx",
+        ".*.mjs",
+        ".*.mts",
+        ".*.ts",
+        ".*.tsx",
+        "tsconfig.json",
+        "tsconfig.*.json"
+      ],
+      "outputs": []
+    },
+    "build": {
+      "dependsOn": [
+        "check",
+        "compile",
+        "pack",
+        "test:e2e"
+      ]
+    },
+    "build:ci": {
+      "dependsOn": [
+        "check",
+        "compile",
+        "pack"
+      ]
+    },
+    "check": {
+      "dependsOn": [
+        "typecheck",
+        "lint"
+      ]
+    },
+    "compile": {
+      "dependsOn": [
+        "compile:ts"
+      ]
+    },
+    "compile:ts": {
+      "dependsOn": [
+        "^compile:ts"
+      ],
+      "inputs": [
+        "$TURBO_ROOT$/tsconfig.base.json",
+        "$TURBO_ROOT$/tsconfig.build.json",
+        "bin/**",
+        "src/**",
+        "tsconfig.build.json"
+      ],
+      "outputs": [
+        "dist/source/**",
+        "!dist/source/.npmignore",
+        "!dist/source/LICENSE",
+        "!dist/source/README.md",
+        "!dist/source/package.json"
+      ]
+    },
+    "lint": {
+      "dependsOn": [
+        "//#lint:eslint"
+      ]
+    },
+    "pack": {
+      "dependsOn": [
+        "pack:npm"
+      ]
+    },
+    "pack:npm": {
+      "dependsOn": [
+        "compile:ts"
+      ],
+      "inputs": [
+        "$TURBO_ROOT$/LICENSE",
+        "$TURBO_ROOT$/package.json",
+        "LICENSE",
+        "README.md",
+        "package.json"
+      ],
+      "outputs": [
+        "dist/packages/npm/**",
+        "dist/source/.npmignore",
+        "dist/source/LICENSE",
+        "dist/source/README.md",
+        "dist/source/package.json"
+      ]
+    },
+    "test:e2e": {
+      "dependsOn": [
+        "test:vitest:e2e"
+      ]
+    },
+    "test:vitest:e2e": {
+      "dependsOn": [
+        "pack",
+        "^pack",
+        "transit"
+      ],
+      "env": [
+        "CI"
+      ],
+      "inputs": [
+        "e2e/**",
+        "vitest.config.e2e.*"
+      ],
+      "outputs": [
+        "dist/test-results/vitest/blob-e2e.json"
+      ]
+    },
+    "transit": {
+      "dependsOn": [
+        "^transit"
+      ]
+    },
+    "typecheck": {
+      "dependsOn": [
+        "//#typecheck:ts",
+        "typecheck:ts"
+      ]
+    },
+    "typecheck:ts": {
+      "dependsOn": [
+        "transit"
+      ],
+      "inputs": [
+        "$TURBO_ROOT$/tsconfig.base.json",
+        "bin/**",
+        "scripts/**",
+        "src/**",
+        "test/**",
+        "e2e/**",
+        "*.cjs",
+        "*.cts",
+        "*.js",
+        "*.jsx",
+        "*.mjs",
+        "*.mts",
+        "*.ts",
+        "*.tsx",
+        ".*.cjs",
+        ".*.cts",
+        ".*.js",
+        ".*.jsx",
+        ".*.mjs",
+        ".*.mts",
+        ".*.ts",
+        ".*.tsx",
+        "tsconfig.json",
+        "tsconfig.*.json"
+      ],
+      "outputs": []
+    }
+  }
+}

@@ -29,18 +29,16 @@ minimum_release_age_excludes = ["npm:@gtbuchanan/*"]
 # don't generate them for .config/. The shared pre-commit workflow runs hk:base.
 [tasks."hk:all"]
 description = "Run hk across all files (fixes locally, checks in CI)"
-run = "gtb hk all"
+run = "pnpm exec gtb hk all"
 
 [tasks."hk:base"]
 description = "Run hk on files changed from a base ref (fixes locally, checks in CI)"
-run = "gtb hk base"
+run = "pnpm exec gtb hk base"
 
 [tools]
 hk = "2.11.1"
 jactionlint = "v2.5.0"
 node = "26.13.0"
-# Runs the hk:* tasks and the gtb-verify hook step.
-"npm:@gtbuchanan/cli" = "2.1.0"
 # Supplies renovate-config-validator for the preset's renovate-config step.
 # Exempts transitive `@yarnpkg/libzip@3.2.2` from aube's no-downgrade trust
 # policy: it is a benign manual publish missing the provenance attestation its

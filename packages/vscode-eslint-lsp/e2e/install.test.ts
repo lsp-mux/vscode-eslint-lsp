@@ -22,7 +22,7 @@ describe('package installation', () => {
     const require = createRequire(path.join(fixture.projectDir, 'index.js'));
     const resolved = require.resolve('@lsp-mux/vscode-eslint-lsp');
 
-    expect(resolved).toContain('main.js');
+    expect(path.basename(resolved)).toBe('main.cjs');
     expect(existsSync(resolved)).toBe(true);
   });
 

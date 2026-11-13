@@ -13,16 +13,14 @@
   },
   "license": "MIT",
   "type": "module",
-  "main": "dist/source/main.js",
+  "main": "main.cjs",
   "scripts": {
-    "build": "pnpm run extract && pnpm run prepare-publish && pnpm run pack && pnpm run test:e2e",
-    "extract": "node scripts/extract.ts",
-    "pack": "node scripts/pack.ts",
-    "prepare-publish": "node scripts/prepare-publish.ts",
+    "compile:ts": "node scripts/extract.ts",
+    "pack:npm": "gtb task pack:npm",
     "publish": "node scripts/publish.ts",
     "release": "node scripts/release.ts",
-    "test:e2e": "vitest run --config vitest.config.e2e.ts",
-    "typecheck": "tsc"
+    "test:vitest:e2e": "gtb task test:vitest:e2e",
+    "typecheck:ts": "gtb task typecheck:ts"
   },
   "devDependencies": {
     "@gtbuchanan/tsconfig": "catalog:",
@@ -37,7 +35,6 @@
     "node": ">=22.6.0"
   },
   "publishConfig": {
-    "directory": "dist/source",
-    "main": "main.js"
+    "directory": "dist/source"
   }
 }

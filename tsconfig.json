@@ -2,8 +2,14 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "extends": "@gtbuchanan/tsconfig/node.json",
+  "extends": "./tsconfig.base.json",
   "include": [
-    "*"
+    "bin",
+    "scripts",
+    "src",
+    "test",
+    "e2e",
+    "*",
+    ".*"
   ]
 }

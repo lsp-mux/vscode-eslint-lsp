@@ -1,7 +1,0 @@
-{
-  "name": "mise-npm-install",
-  "private": true,
-  "dependencies": {
-    "@gtbuchanan/cli": "2.1.0"
-  }
-}

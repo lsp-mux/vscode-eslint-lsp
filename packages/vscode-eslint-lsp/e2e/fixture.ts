@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 
 const locateTarball = (): string => {
-  const outDir = path.join(process.cwd(), 'dist', 'packages');
+  const outDir = path.join(process.cwd(), 'dist', 'packages', 'npm');
   const tarballs = readdirSync(outDir).filter(file => file.endsWith('.tgz'));
   const [tgzName] = tarballs;
   if (!tgzName || tarballs.length !== 1) {

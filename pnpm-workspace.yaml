@@ -1,4 +1,5 @@
 catalog:
+  '@gtbuchanan/cli': 2.1.0
   '@gtbuchanan/eslint-config': 0.6.1
   '@gtbuchanan/tsconfig': 0.2.0
   '@gtbuchanan/vitest-config': 0.4.0
@@ -6,6 +7,7 @@ catalog:
   '@types/yauzl': 3.4.0
   eslint: 10.14.0
   jiti: 2.7.0
+  turbo: 2.11.10
   typescript: 6.0.3
   vitest: 5.1.0
   yauzl: 3.4.0

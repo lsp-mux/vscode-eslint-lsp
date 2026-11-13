@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "@gtbuchanan/tsconfig/node.json"
+  ]
+}

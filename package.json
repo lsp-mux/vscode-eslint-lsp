@@ -3,18 +3,27 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "pnpm --recursive run build",
-    "lint": "eslint --max-warnings=0 .",
+    "build": "gtb turbo run build",
+    "build:ci": "gtb turbo run build:ci",
+    "check": "gtb turbo run check",
+    "lint:eslint": "gtb task lint:eslint .",
+    "pack": "gtb turbo run pack",
+    "prepare": "gtb prepare",
     "publish": "pnpm --recursive run publish",
     "release": "pnpm --recursive run release",
-    "typecheck": "tsc && pnpm --recursive run typecheck"
+    "test:e2e": "gtb turbo run test:e2e",
+    "typecheck:ts": "gtb task typecheck:ts",
+    "verify": "gtb verify"
   },
   "devDependencies": {
+    "@gtbuchanan/cli": "catalog:",
     "@gtbuchanan/eslint-config": "catalog:",
     "@gtbuchanan/tsconfig": "catalog:",
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "jiti": "catalog:",
+    "turbo": "catalog:",
     "typescript": "catalog:"
-  }
+  },
+  "packageManager": "pnpm@12.18.0"
 }

@@ -13,7 +13,8 @@ const { version } = manifest;
 
 const distDir = path.join(import.meta.dirname, '..', 'dist');
 const outDir = path.join(distDir, 'source');
-const outFile = path.join(outDir, 'main.js');
+// The server is CommonJS, and the package is an ES module.
+const outFile = path.join(outDir, 'main.cjs');
 const zipPath = path.join(distDir, 'vscode-eslint.vsix');
 const url = `https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dbaeumer/vsextensions/vscode-eslint/${version}/vspackage`;
 

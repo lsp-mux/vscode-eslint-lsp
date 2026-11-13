@@ -6,7 +6,7 @@ import manifest from '../package.json' with { type: 'json' };
 const { name, version } = manifest;
 
 const distDir = path.join(import.meta.dirname, '..', 'dist');
-const packagesDir = path.join(distDir, 'packages');
+const packagesDir = path.join(distDir, 'packages', 'npm');
 
 const tarballs = readdirSync(packagesDir).filter(file => file.endsWith('.tgz'));
 const [tgzName] = tarballs;
