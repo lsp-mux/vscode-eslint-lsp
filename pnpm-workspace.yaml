@@ -1,4 +1,5 @@
 catalog:
+  '@changesets/cli': 3.0.3
   '@gtbuchanan/cli': 2.1.0
   '@gtbuchanan/eslint-config': 0.6.1
   '@gtbuchanan/tsconfig': 0.2.0

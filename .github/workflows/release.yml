@@ -1,0 +1,34 @@
+---
+# Runs queue rather than cancel: cancelling CD partway through publishing would
+# leave npm and the GitHub release out of step.
+concurrency:
+  cancel-in-progress: false
+  group: ${{ github.workflow }}-caller-${{ github.ref }}
+
+jobs:
+  cd:
+    name: CD
+    needs: ci
+    permissions:
+      contents: read
+      id-token: write # npm trusted publishing exchanges the OIDC token
+    secrets:
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
+    uses: gtbuchanan/tooling/.github/workflows/cd.yml@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
+
+  ci:
+    name: CI
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    uses: gtbuchanan/tooling/.github/workflows/ci.yml@0f6d2cedc85218b1e98c0b796576a64d10373883 # v1.1.0
+name: Release
+
+# A merged Renovate bump of the package version is what publishes: CD's
+# changeset publish ships any version npm doesn't have yet, and every other
+# push finds nothing to publish.
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read

@@ -10,14 +10,13 @@
     "lint:eslint": "gtb task lint:eslint .",
     "pack": "gtb turbo run pack",
     "prepare": "gtb prepare",
-    "publish": "pnpm --recursive run publish",
-    "release": "pnpm --recursive run release",
     "test:e2e": "gtb turbo run test:e2e",
     "test:slow": "gtb turbo run test:slow",
     "typecheck:ts": "gtb task typecheck:ts",
     "verify": "gtb verify"
   },
   "devDependencies": {
+    "@changesets/cli": "catalog:",
     "@gtbuchanan/cli": "catalog:",
     "@gtbuchanan/eslint-config": "catalog:",
     "@gtbuchanan/tsconfig": "catalog:",
