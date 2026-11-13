@@ -37,7 +37,7 @@ run = "pnpm exec gtb hk base"
 
 [tools]
 hk = "2.12.0"
-jactionlint = "v2.5.0"
+jactionlint = "v2.6.0"
 node = "26.13.1"
 # Supplies renovate-config-validator for the preset's renovate-config step.
 # Exempts transitive `@yarnpkg/libzip@3.2.2` from aube's no-downgrade trust
