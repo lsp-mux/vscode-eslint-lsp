@@ -50,6 +50,7 @@
         "check",
         "compile",
         "pack",
+        "test:slow",
         "test:e2e"
       ]
     },
@@ -63,7 +64,8 @@
     "check": {
       "dependsOn": [
         "typecheck",
-        "lint"
+        "lint",
+        "test:vitest:fast"
       ]
     },
     "compile": {
@@ -88,6 +90,30 @@
         "!dist/source/LICENSE",
         "!dist/source/README.md",
         "!dist/source/package.json"
+      ]
+    },
+    "coverage:codecov:upload": {
+      "cache": false,
+      "env": [
+        "CI",
+        "CODECOV_TOKEN"
+      ]
+    },
+    "coverage:merge": {
+      "dependsOn": [
+        "coverage:vitest:merge"
+      ]
+    },
+    "coverage:vitest:merge": {
+      "dependsOn": [
+        "test:vitest:fast",
+        "test:vitest:slow"
+      ],
+      "inputs": [
+        "dist/test-results/vitest/merge/blob-*.json"
+      ],
+      "outputs": [
+        "dist/coverage/vitest/merged/**"
       ]
     },
     "lint": {
@@ -124,6 +150,11 @@
         "test:vitest:e2e"
       ]
     },
+    "test:slow": {
+      "dependsOn": [
+        "test:vitest:slow"
+      ]
+    },
     "test:vitest:e2e": {
       "dependsOn": [
         "pack",
@@ -139,6 +170,48 @@
       ],
       "outputs": [
         "dist/test-results/vitest/blob-e2e.json"
+      ]
+    },
+    "test:vitest:fast": {
+      "dependsOn": [
+        "^compile",
+        "transit"
+      ],
+      "env": [
+        "CI"
+      ],
+      "inputs": [
+        "bin/**",
+        "src/**",
+        "test/**",
+        "scripts/**",
+        "vitest.config.*",
+        "!vitest.config.e2e.*"
+      ],
+      "outputs": [
+        "dist/coverage/vitest/fast/**",
+        "dist/test-results/vitest/merge/blob-fast.json"
+      ]
+    },
+    "test:vitest:slow": {
+      "dependsOn": [
+        "^compile",
+        "transit"
+      ],
+      "env": [
+        "CI"
+      ],
+      "inputs": [
+        "bin/**",
+        "src/**",
+        "test/**",
+        "scripts/**",
+        "vitest.config.*",
+        "!vitest.config.e2e.*"
+      ],
+      "outputs": [
+        "dist/coverage/vitest/slow/**",
+        "dist/test-results/vitest/merge/blob-slow.json"
       ]
     },
     "transit": {

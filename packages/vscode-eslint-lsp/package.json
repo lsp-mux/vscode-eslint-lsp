@@ -16,10 +16,14 @@
   "main": "main.cjs",
   "scripts": {
     "compile:ts": "node scripts/extract.ts",
+    "coverage:codecov:upload": "gtb task coverage:codecov:upload",
+    "coverage:vitest:merge": "gtb task coverage:vitest:merge",
     "pack:npm": "gtb task pack:npm",
     "publish": "node scripts/publish.ts",
     "release": "node scripts/release.ts",
     "test:vitest:e2e": "gtb task test:vitest:e2e",
+    "test:vitest:fast": "gtb task test:vitest:fast",
+    "test:vitest:slow": "gtb task test:vitest:slow",
     "typecheck:ts": "gtb task typecheck:ts"
   },
   "devDependencies": {
@@ -27,9 +31,12 @@
     "@gtbuchanan/vitest-config": "catalog:",
     "@types/node": "catalog:",
     "@types/yauzl": "catalog:",
+    "@types/yazl": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:",
-    "yauzl": "catalog:"
+    "yauzl": "catalog:",
+    "yazl": "catalog:"
   },
   "engines": {
     "node": ">=22.6.0"

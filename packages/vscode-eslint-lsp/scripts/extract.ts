@@ -1,10 +1,9 @@
 import { createWriteStream } from 'node:fs';
 import { mkdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import type { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
-import { type Entry, open } from 'yauzl';
 import manifest from '../package.json' with { type: 'json' };
+import { assertVsixVersion, readVsixEntry, vsixUrl } from './vsix.ts';
 
 /* This package republishes the extension's server under the extension's own
    version, so the manifest's version names the release to download. Renovate
@@ -16,13 +15,12 @@ const outDir = path.join(distDir, 'source');
 // The server is CommonJS, and the package is an ES module.
 const outFile = path.join(outDir, 'main.cjs');
 const zipPath = path.join(distDir, 'vscode-eslint.vsix');
-const url = `https://marketplace.visualstudio.com/_apis/public/gallery/publishers/dbaeumer/vsextensions/vscode-eslint/${version}/vspackage`;
 
 await mkdir(outDir, { recursive: true });
 
 console.log(`vscode-eslint-lsp: downloading vscode-eslint v${version}...`);
 
-const response = await fetch(url);
+const response = await fetch(vsixUrl(version));
 if (!response.ok || !response.body) {
   throw new Error(`Download failed: ${String(response.status)} ${response.statusText}`);
 }
@@ -30,62 +28,15 @@ await pipeline(response.body, createWriteStream(zipPath));
 
 console.log('vscode-eslint-lsp: extracting...');
 
-const serverData = await extractFromVsix('extension/server/out/eslintServer.js');
+const serverData = await readVsixEntry(zipPath, 'extension/server/out/eslintServer.js');
 if (!serverData) throw new Error('eslintServer.js not found in VSIX');
 
-const manifestData = await extractFromVsix('extension/package.json');
+const manifestData = await readVsixEntry(zipPath, 'extension/package.json');
 if (!manifestData) throw new Error('package.json not found in VSIX');
 
-const { version: vsixVersion } = JSON.parse(manifestData.toString()) as { version: string };
-if (vsixVersion !== version) {
-  throw new Error(`Marketplace served v${vsixVersion} for v${version}`);
-}
+assertVsixVersion(manifestData.toString(), version);
 
 await writeFile(outFile, serverData);
 await rm(zipPath, { force: true });
 
 console.log(`vscode-eslint-lsp: extracted v${version}`);
-
-/**
- * Reads one entry out of the downloaded VSIX.
- * @param entryName - Path of the entry inside the archive
- * @returns The entry's contents, or undefined when the archive has no such entry
- */
-function extractFromVsix(entryName: string): Promise<Buffer | undefined> {
-  return new Promise((resolve, reject) => {
-    open(zipPath, { lazyEntries: true }, (err: Error | null, zipfile) => {
-      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition --
-         zipfile is undefined on error */
-      if (err || !zipfile) {
-        reject(err ?? new Error('Failed to open zip'));
-        return;
-      }
-
-      zipfile.readEntry();
-
-      zipfile.on('entry', (entry: Entry) => {
-        if (entry.fileName !== entryName) {
-          zipfile.readEntry();
-          return;
-        }
-        zipfile.openReadStream(entry, (readErr: Error | null, stream: Readable | undefined) => {
-          if (readErr || !stream) {
-            reject(readErr ?? new Error('Failed to open entry'));
-            return;
-          }
-          const chunks: Buffer[] = [];
-          stream.on('data', (chunk: Buffer) => {
-            chunks.push(chunk);
-          });
-          stream.on('end', () => {
-            resolve(Buffer.concat(chunks));
-          });
-        });
-      });
-
-      zipfile.on('end', () => {
-        resolve(undefined);
-      });
-    });
-  });
-}
