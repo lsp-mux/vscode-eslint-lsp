@@ -5,6 +5,8 @@ import "package://github.com/gtbuchanan/tooling/releases/download/hk-config@0.7.
 // eslint args shared by the step's check/fix; only `--fix` differs.
 local eslintArgs = "--max-warnings=0 --no-warn-ignored {{files}}"
 
+local changesetRejection = "Renovate owns the package version, which must equal an upstream release, and a changeset would bump it off upstream (gtbuchanan/tooling#754)"
+
 local baseSteps = new Mapping<String, Step> {
   ...(Defaults.recommended) {
     ["jactionlint"] = Defaults.jactionlintWith("pedantic")
@@ -17,6 +19,17 @@ local allSteps = (baseSteps) {
   ["eslint"] {
     check = "pnpm exec eslint \(eslintArgs)"
     fix = "pnpm exec eslint --fix \(eslintArgs)"
+  }
+  // Renovate owns the package version, so the step fails whenever a changeset
+  // file is present.
+  ["forbid-changesets"] {
+    glob = ".changeset/*.md"
+    check = new Script {
+      windows = "echo \(changesetRejection) & exit /b 1"
+      linux = "echo '\(changesetRejection)' >&2; exit 1"
+      macos = "echo '\(changesetRejection)' >&2; exit 1"
+      other = "echo '\(changesetRejection)' >&2; exit 1"
+    }
   }
 }
 
