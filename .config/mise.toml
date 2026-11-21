@@ -46,7 +46,7 @@ node = "26.13.1"
 # lapses once a different release resolves.
 "npm:renovate" = { trust_policy_excludes = [
   "@yarnpkg/libzip@3.2.2",
-], version = "44.224.1" }
+], version = "44.257.9" }
 pnpm = "12.18.0"
 # jactionlint lints workflow `run:` scripts with it.
 shellcheck = "0.11.0"
