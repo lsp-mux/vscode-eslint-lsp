@@ -6,6 +6,7 @@ lockfile_version = 3
 version = "2.12.0"
 backend = "packslip:github.com/jdx/hk"
 specifiers = ["2.12.0"]
+unsupported_platforms = ["macos-x64"]
 
 [tools.hk."platforms.linux-arm64"]
 checksum = "sha256:0f4e44802c3fcf98461b6608281353ae1944b82fd12f4a683f8e2e6683e562f3"
@@ -125,7 +126,7 @@ url = "https://nodejs.org/dist/v26.13.1/node-v26.13.1-win-x64.zip"
 
 [[tools."npm:renovate"]]
 version = "44.224.1"
-aube = { path = "mise/locks/npm-renovate/44.224.1~aa673d8d", digest = "sha256:b063d8f1be524a8c88e8124569a7dee3db8050f244c8481fac33c7dfe18db087" }
+aube = { path = "mise/locks/npm-renovate/44.224.1~aa673d8d", digest = "sha256:efbe8babfa2936cb083e2611eb8930fbc6b9015a919d36aa40d311db6954ef94" }
 backend = "npm:renovate"
 specifiers = ["44.224.1"]
 
